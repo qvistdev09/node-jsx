@@ -4,8 +4,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "rm -rf dist && tsc",
-    "watch": "tsc --watch",
-    "dev": "nodemon dist/index.ts"
+    "watch": "tsc --watch"
   },
   "devDependencies": {
     "@types/node": "^18.7.13",
