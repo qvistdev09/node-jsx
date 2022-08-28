@@ -17,9 +17,9 @@ export default function ServerJSX(
 }
 
 export class Element {
-  private tag: string;
-  private children: Array<Child>;
-  private attributes: Map<string, string>;
+  tag: string;
+  children: Array<Child>;
+  attributes: Map<string, string>;
 
   constructor(tag: string) {
     this.tag = tag;
@@ -27,7 +27,7 @@ export class Element {
     this.attributes = new Map();
   }
 
-  private resolveChild(child: Child): string {
+  resolveChild(child: Child): string {
     if (!Array.isArray(child)) {
       if (!child) {
         return "";
@@ -43,14 +43,14 @@ export class Element {
     return child.map((subChild) => this.resolveChild(subChild)).join("");
   }
 
-  private renderAttributes() {
+  renderAttributes() {
     if (this.attributes.size === 0) {
       return "";
     }
     return ` ${[...this.attributes].map(([key, value]) => `${key}="${value}"`).join(" ")}`;
   }
 
-  public setAttributes(attributes: Record<string, string>) {
+  setAttributes(attributes: Record<string, string>) {
     Object.keys(attributes).forEach((key) => {
       const value = attributes[key];
       if (value) {
@@ -60,12 +60,12 @@ export class Element {
     return this;
   }
 
-  public contains(children: Array<Child>) {
+  contains(children: Array<Child>) {
     this.children = children;
     return this;
   }
 
-  public render(): string {
+  render(): string {
     return `<${this.tag}${this.renderAttributes()}>${this.children
       .map((child) => this.resolveChild(child))
       .join("")}</${this.tag}>`;
@@ -85,6 +85,13 @@ declare global {
     type ElementAttributesProperty<p> = (props: p) => Element;
 
     interface Element {
+      tag: string;
+      children: Array<Child>;
+      attributes: Map<string, string>;
+      resolveChild: (child: Child) => string;
+      renderAttributes: () => string;
+      setAttributes: (attributes: Record<string, string>) => Element;
+      contains: (children: Array<Child>) => Element;
       render: () => string;
     }
   }
