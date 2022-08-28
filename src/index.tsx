@@ -1,27 +1,28 @@
 import ElementJSX from "./ElementJSX";
 import fs from "fs";
 import path from "path";
+import Element from "./Element";
 
-const list = (
-  <ul>
-    <li>någonting</li>
-    <li>något</li>
-  </ul>
-);
+const Outer = ({ name, children }: { name: string | null; children: JSX.Element[] }) => {
+  return (
+    <div>
+      {name && <span>{name}</span>}
+      <main>{children}</main>
+    </div>
+  );
+};
 
-const page = (
-  <html>
-    <head></head>
-    <body>
-      <h1 class="header" data-test="25">
-        Ett test som verkar fungera test
-      </h1>
-      <p>Some other stuff here</p>
-      {list}
-    </body>
-  </html>
-);
+const OtherThing = () => {
+  return (
+    <Outer name="Oscar">
+      <p>Heya</p>
+      <p>some stuff in main</p>
+    </Outer>
+  );
+};
 
-const pageHtml = page.render();
+const hm = <p>hey</p>;
 
-fs.writeFileSync(path.resolve(__dirname, "../index.html"), pageHtml, "utf-8");
+const result = OtherThing();
+
+console.log(result.render());

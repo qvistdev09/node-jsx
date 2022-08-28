@@ -1,12 +1,27 @@
+type Child = Element | string | null | undefined | Array<Child>;
+
 export default class Element {
   private tag: string;
-  private children: Array<Element | string | null>;
+  public children: Array<Child>;
   private attributes: Map<string, string>;
 
   constructor(tag: string) {
     this.tag = tag;
     this.children = [];
     this.attributes = new Map();
+  }
+
+  private resolveChild(child: Child): string {
+    if (!Array.isArray(child)) {
+      if (!child) {
+        return "";
+      }
+      if (typeof child === "string") {
+        return child;
+      }
+      return child.render();
+    }
+    return child.map((subChild) => this.resolveChild(subChild)).join("");
   }
 
   private getAttr() {
@@ -36,7 +51,7 @@ export default class Element {
 
   public render(): string {
     return `<${this.tag}${this.getAttr()}>${this.children
-      .map((child) => (!child ? "" : typeof child === "string" ? child : child.render()))
+      .map((child) => this.resolveChild(child))
       .join("")}</${this.tag}>`;
   }
 }
