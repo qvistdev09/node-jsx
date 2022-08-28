@@ -1,5 +1,21 @@
 type Child = Element | string | null | undefined | number | Array<Child>;
 
+export default function ServerJSX(
+  element: string | ((props: any) => Element),
+  attributes: Record<string, string> | null,
+  ...children: Array<Child>
+) {
+  if (typeof element === "function") {
+    return children.length > 0 ? element({ ...attributes, children }) : element(attributes);
+  }
+  const instance = new Element(element);
+  if (attributes) {
+    instance.setAttributes(attributes);
+  }
+  instance.contains(children);
+  return instance;
+}
+
 export class Element {
   private tag: string;
   private children: Array<Child>;
@@ -44,7 +60,7 @@ export class Element {
     return this;
   }
 
-  public contains(children: Array<Element | string | null>) {
+  public contains(children: Array<Child>) {
     this.children = children;
     return this;
   }
