@@ -1,0 +1,14 @@
+lockfileVersion: 5.3
+
+specifiers:
+  typescript: ^4.8.2
+
+devDependencies:
+  typescript: 4.8.2
+
+packages:
+
+  /typescript/4.8.2:
+    resolution: {integrity: sha512-C0I1UsrrDHo2fYI5oaCGbSejwX4ch+9Y5jTQELvovfmFkK3HHSZJB8MSJcWLmCUBzQBchCrZ9rMRV6GuNrvGtw==, tarball: '-/pull/typescript/4.8.2'}
+    hasBin: true
+    dev: true
