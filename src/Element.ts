@@ -1,6 +1,6 @@
 export default class Element {
   private tag: string;
-  private children: Array<Element | string>;
+  private children: Array<Element | string | null>;
   private attributes: Map<string, string>;
 
   constructor(tag: string) {
@@ -13,7 +13,7 @@ export default class Element {
     if (this.attributes.size === 0) {
       return "";
     }
-    return [...this.attributes].map(([key, value]) => `${key}="${value}"`).join(" ");
+    return ` ${[...this.attributes].map(([key, value]) => `${key}="${value}"`).join(" ")}`;
   }
 
   public set(attributes: Record<string, string>): Element;
@@ -29,14 +29,14 @@ export default class Element {
     return this;
   }
 
-  public with(...children: Array<Element | string>) {
+  public with(children: Array<Element | string | null>) {
     this.children = children;
     return this;
   }
 
   public render(): string {
-    return `<${this.tag} ${this.getAttr()}>${this.children
-      .map((child) => (typeof child === "string" ? child : child.render()))
+    return `<${this.tag}${this.getAttr()}>${this.children
+      .map((child) => (!child ? "" : typeof child === "string" ? child : child.render()))
       .join("")}</${this.tag}>`;
   }
 }

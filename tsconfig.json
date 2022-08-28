@@ -12,7 +12,9 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "strictPropertyInitialization": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "jsx": "react",
+    "jsxFactory": "ElementJSX"
   },
   "lib": ["es2015"],
   "include": ["src"]
