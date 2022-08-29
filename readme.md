@@ -58,6 +58,12 @@ const Layout = ({ navItems, children }: Props) => (
     </main>
   </div>
 );
+
+const Page = () => (
+  <Layout>
+    <p>Some stuff</p>
+  </Layout>
+);
 ```
 
 Custom components can be nested into each other, and their props will be typed.
