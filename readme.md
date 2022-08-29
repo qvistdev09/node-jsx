@@ -15,7 +15,7 @@ Add the following fields to your tsconfig.json:
 ```
 ServerJSX is the name of the function that will be used to resolve JSX expressions. As long as it is imported into a file, JSX expressions can be used.
 
-```javascript
+```typescript
 import ServerJSX from "server-jsx";
 
 interface Props {
@@ -45,7 +45,7 @@ const html = person.render();
 ```
 Similar to React, there is a helper type for components that accept children.
 
-```javascript
+```typescript
 import ServerJSX, { PropsWithChildren } from "server-jsx";
 
 type Props = PropsWithChildren<{ navItems: string[] }>;
@@ -62,7 +62,7 @@ const Layout = ({ navItems, children }: Props) => (
 
 Custom components can be nested into each other, and their props will be typed.
 
-```javascript
+```typescript
 import ServerJSX from "server-jsx";
 
 interface CardProps {
