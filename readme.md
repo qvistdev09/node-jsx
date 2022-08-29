@@ -13,7 +13,7 @@ Add the following fields to your tsconfig.json:
   },
 }
 ```
-ServerJSX is the name of the function that will be used to resolve JSX expressions. As long as it is imported into the file, JSX expressions can be used.
+ServerJSX is the name of the function that will be used to resolve JSX expressions. As long as it is imported into a file, JSX expressions can be used.
 
 ```typescript
 import ServerJSX from "server-jsx";
@@ -32,12 +32,59 @@ const PersonListItem = ({ name, city }: Props) => (
 
 const person = <PersonListItem name="Oscar" city="Stockholm" />;
 
-// All elements returned from JSX expressions have a render method, which returns the HTML as a string
+// All elements returned from JSX expressions have a render method,
+// which returns the HTML as a string.
 
 const html = person.render();
+// Output:
 // <li>
 //    <span class="person_name">Oscar</span>
 //    <span class="person_city">Stockholm</span>
 // </li>
 
 ```
+Similar to React, there is a helper type for components that accept children.
+
+```typescript
+import ServerJSX, { PropsWithChildren } from "server-jsx";
+
+type Props = PropsWithChildren<{ navItems: string[] }>;
+
+const Layout = ({ navItems, children }: Props) => (
+  <div>
+    <nav>{navItems.map(navlink => <a href={navlink}>{navlink}</a>)}</nav>
+    <main>
+      {children}
+    </main>
+  </div>
+);
+```
+
+Custom components can be nested into each other, and their props will be typed.
+
+```typescript
+import ServerJSX from "server-jsx";
+
+interface CardProps {
+  header: string;
+  content: string;
+}
+const Card = ({ header, content }: CardProps) => (
+  <div class="card">
+    <h2>{header}</h2>
+    <p>{content}</p>
+  </div>
+);
+
+interface DeckProps {
+  cards: Array<{ header: string; content: string; }>
+}
+
+const Deck = ({ cards }: DeckProps) => (
+  <main>
+    {cards.map(({ header, content}) => <Card header={header} content={content} />)}
+  </main>
+);
+
+```
+
