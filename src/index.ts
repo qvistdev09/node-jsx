@@ -20,6 +20,24 @@ export class Element {
   tag: string;
   children: Array<Child>;
   attributes: Map<string, string>;
+  static voidElements = [
+    "area",
+    "base",
+    "br",
+    "col",
+    "command",
+    "embed",
+    "hr",
+    "img",
+    "input",
+    "keygen",
+    "link",
+    "meta",
+    "param",
+    "source",
+    "track",
+    "wbr",
+  ];
 
   constructor(tag: string) {
     this.tag = tag;
@@ -76,11 +94,16 @@ export class Element {
   }
 
   render(): string {
+    if (Element.voidElements.includes(this.tag)) {
+      return `<${this.tag}${this.renderAttributes()}>`;
+    }
     return `<${this.tag}${this.renderAttributes()}>${this.children
       .map((child) => this.resolveChild(child))
       .join("")}</${this.tag}>`;
   }
 }
+
+type ElementType = Element;
 
 declare global {
   namespace JSX {
@@ -94,16 +117,7 @@ declare global {
 
     type ElementAttributesProperty<p> = (props: p) => Element;
 
-    interface Element {
-      tag: string;
-      children: Array<Child>;
-      attributes: Map<string, string>;
-      resolveChild: (child: Child) => string;
-      renderAttributes: () => string;
-      setAttributes: (attributes: Record<string, string>) => Element;
-      contains: (children: Array<Child>) => Element;
-      render: () => string;
-    }
+    interface Element extends ElementType {}
   }
 }
 
