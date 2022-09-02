@@ -88,7 +88,9 @@ interface DeckProps {
 
 const Deck = ({ cards }: DeckProps) => (
   <main>
-    {cards.map(({ header, content}) => <Card header={header} content={content} />)}
+    {cards.map(({ header, content }) => (
+      <Card header={header} content={content} />
+    ))}
   </main>
 );
 
