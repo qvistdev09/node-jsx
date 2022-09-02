@@ -47,7 +47,17 @@ export class Element {
     if (this.attributes.size === 0) {
       return "";
     }
-    return ` ${[...this.attributes].map(([key, value]) => `${key}="${value}"`).join(" ")}`;
+    return ` ${[...this.attributes]
+      .map(([key, value]) => {
+        if (typeof value === "boolean" && value) {
+          return key;
+        }
+        if (typeof value === "boolean" && !value) {
+          return "";
+        }
+        return `${key}="${value}"`;
+      })
+      .join(" ")}`;
   }
 
   setAttributes(attributes: Record<string, string>) {
