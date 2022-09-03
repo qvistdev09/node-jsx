@@ -4,6 +4,7 @@ export declare class Element {
     tag: string;
     children: Array<Child>;
     attributes: Map<string, string>;
+    static voidElements: string[];
     constructor(tag: string);
     resolveChild(child: Child): string;
     renderAttributes(): string;
@@ -11,6 +12,7 @@ export declare class Element {
     contains(children: Array<Child>): this;
     render(): string;
 }
+declare type ElementType = Element;
 declare global {
     namespace JSX {
         interface IntrinsicElements {
@@ -20,15 +22,7 @@ declare global {
             children: {};
         }
         type ElementAttributesProperty<p> = (props: p) => Element;
-        interface Element {
-            tag: string;
-            children: Array<Child>;
-            attributes: Map<string, string>;
-            resolveChild: (child: Child) => string;
-            renderAttributes: () => string;
-            setAttributes: (attributes: Record<string, string>) => Element;
-            contains: (children: Array<Child>) => Element;
-            render: () => string;
+        interface Element extends ElementType {
         }
     }
 }

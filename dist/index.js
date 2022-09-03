@@ -17,6 +17,24 @@ class Element {
     tag;
     children;
     attributes;
+    static voidElements = [
+        "area",
+        "base",
+        "br",
+        "col",
+        "command",
+        "embed",
+        "hr",
+        "img",
+        "input",
+        "keygen",
+        "link",
+        "meta",
+        "param",
+        "source",
+        "track",
+        "wbr",
+    ];
     constructor(tag) {
         this.tag = tag;
         this.children = [];
@@ -41,7 +59,17 @@ class Element {
         if (this.attributes.size === 0) {
             return "";
         }
-        return ` ${[...this.attributes].map(([key, value]) => `${key}="${value}"`).join(" ")}`;
+        return ` ${[...this.attributes]
+            .map(([key, value]) => {
+            if (typeof value === "boolean" && value) {
+                return key;
+            }
+            if (typeof value === "boolean" && !value) {
+                return "";
+            }
+            return `${key}="${value}"`;
+        })
+            .join(" ")}`;
     }
     setAttributes(attributes) {
         Object.keys(attributes).forEach((key) => {
@@ -57,6 +85,9 @@ class Element {
         return this;
     }
     render() {
+        if (Element.voidElements.includes(this.tag)) {
+            return `<${this.tag}${this.renderAttributes()}>`;
+        }
         return `<${this.tag}${this.renderAttributes()}>${this.children
             .map((child) => this.resolveChild(child))
             .join("")}</${this.tag}>`;
