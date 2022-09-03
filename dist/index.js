@@ -13,6 +13,11 @@ function ServerJSX(element, attributes, ...children) {
     return instance;
 }
 exports.default = ServerJSX;
+ServerJSX.Fragment = function ({ children }) {
+    const instance = new Element(null);
+    instance.contains(children);
+    return instance;
+};
 class Element {
     tag;
     children;
@@ -34,6 +39,7 @@ class Element {
         "source",
         "track",
         "wbr",
+        "!doctype"
     ];
     constructor(tag) {
         this.tag = tag;
@@ -85,6 +91,9 @@ class Element {
         return this;
     }
     render() {
+        if (!this.tag) {
+            return this.children.map((child) => this.resolveChild(child)).join("");
+        }
         if (Element.voidElements.includes(this.tag)) {
             return `<${this.tag}${this.renderAttributes()}>`;
         }

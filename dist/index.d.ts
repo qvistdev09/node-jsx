@@ -1,11 +1,17 @@
 declare type Child = Element | string | null | undefined | number | Array<Child>;
-export default function ServerJSX(element: string | ((props: any) => Element), attributes: Record<string, string> | null, ...children: Array<Child>): Element;
+declare function ServerJSX(element: string | ((props: any) => Element), attributes: Record<string, string> | null, ...children: Array<Child>): Element;
+declare namespace ServerJSX {
+    var Fragment: ({ children }: {
+        children: Child[];
+    }) => Element;
+}
+export default ServerJSX;
 export declare class Element {
-    tag: string;
+    tag: string | null;
     children: Array<Child>;
     attributes: Map<string, string>;
     static voidElements: string[];
-    constructor(tag: string);
+    constructor(tag: string | null);
     resolveChild(child: Child): string;
     renderAttributes(): string;
     setAttributes(attributes: Record<string, string>): this;
@@ -29,4 +35,3 @@ declare global {
 export declare type PropsWithChildren<p = unknown> = p & {
     children: Child;
 };
-export {};
