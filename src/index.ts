@@ -16,8 +16,14 @@ export default function ServerJSX(
   return instance;
 }
 
+ServerJSX.Fragment = function ({ children }: { children: Child[] }) {
+  const instance = new Element(null);
+  instance.contains(children);
+  return instance;
+};
+
 export class Element {
-  tag: string;
+  tag: string | null;
   children: Array<Child>;
   attributes: Map<string, string>;
   static voidElements = [
@@ -37,9 +43,10 @@ export class Element {
     "source",
     "track",
     "wbr",
+    "!doctype"
   ];
 
-  constructor(tag: string) {
+  constructor(tag: string | null) {
     this.tag = tag;
     this.children = [];
     this.attributes = new Map();
@@ -94,6 +101,9 @@ export class Element {
   }
 
   render(): string {
+    if (!this.tag) {
+      return this.children.map((child) => this.resolveChild(child)).join("");
+    }
     if (Element.voidElements.includes(this.tag)) {
       return `<${this.tag}${this.renderAttributes()}>`;
     }
