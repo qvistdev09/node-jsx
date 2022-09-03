@@ -9,7 +9,8 @@ Add the following fields to your tsconfig.json:
 {
   "compilerOptions": {
     "jsx": "react",
-    "jsxFactory": "ServerJSX"
+    "jsxFactory": "ServerJSX",
+    "jsxFragmentFactory": "ServerJSX.Fragment"
   },
 }
 ```
