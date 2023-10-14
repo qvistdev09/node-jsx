@@ -1,6 +1,6 @@
 type Child = Element | string | null | undefined | number | Array<Child>;
 
-export default function ServerJSX(
+export default function NodeJSX(
   element: string | ((props: any) => Element),
   attributes: Record<string, string> | null,
   ...children: Array<Child>
@@ -16,7 +16,7 @@ export default function ServerJSX(
   return instance;
 }
 
-ServerJSX.Fragment = function ({ children }: { children: Child[] }) {
+NodeJSX.Fragment = function ({ children }: { children: Child[] }) {
   const instance = new Element(null);
   instance.contains(children);
   return instance;
@@ -43,7 +43,7 @@ export class Element {
     "source",
     "track",
     "wbr",
-    "!doctype"
+    "!doctype",
   ];
 
   constructor(tag: string | null) {

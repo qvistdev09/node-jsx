@@ -1,6 +1,14 @@
-# server-jsx
+# node-jsx
 
 This is a minimal, non-React JSX factory which allows using JSX expressions to generate static html. Being naturally TypeScript-friendly, this could be used as a strongly typed templating engine, or as a static site generator.
+
+## Notice
+
+This is a minimal project made for learning purposes. It has not been exhaustively tested for production deployments and contains no particular measures to remedy common safety issues stemming from HTML template engines. Use at own risk.
+
+## Installation
+
+```npm install @qvistdev/node-jsx```
 
 ## Usage
 
@@ -9,15 +17,15 @@ Add the following fields to your tsconfig.json:
 {
   "compilerOptions": {
     "jsx": "react",
-    "jsxFactory": "ServerJSX",
-    "jsxFragmentFactory": "ServerJSX.Fragment"
+    "jsxFactory": "NodeJSX",
+    "jsxFragmentFactory": "NodeJSX.Fragment"
   },
 }
 ```
-ServerJSX is the name of the function that will be used to resolve JSX expressions. As long as it is imported into a file, JSX expressions can be used.
+NodeJSX is the name of the function that will be used to resolve JSX expressions. As long as it is imported into a file, JSX expressions can be used.
 
 ```typescript
-import ServerJSX from "server-jsx";
+import NodeJSX from "node-jsx";
 
 interface Props {
   name: string;
@@ -47,7 +55,7 @@ const html = person.render();
 Similar to React, there is a helper type for components that accept children.
 
 ```typescript
-import ServerJSX, { PropsWithChildren } from "server-jsx";
+import NodeJSX, { PropsWithChildren } from "node-jsx";
 
 type Props = PropsWithChildren<{ navItems: string[] }>;
 
@@ -70,7 +78,7 @@ const Page = () => (
 Custom components can be nested into each other, and their props will be typed.
 
 ```typescript
-import ServerJSX from "server-jsx";
+import NodeJSX from "node-jsx";
 
 interface CardProps {
   header: string;
