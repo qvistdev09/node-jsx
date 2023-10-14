@@ -12,10 +12,10 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "strictPropertyInitialization": true,
-    "outDir": "dist",
+    "outDir": "lib",
     "jsx": "react",
-    "jsxFactory": "ServerJSX",
-    "jsxFragmentFactory": "ServerJSX.Fragment"
+    "jsxFactory": "NodeJSX",
+    "jsxFragmentFactory": "NodeJSX.Fragment"
   },
   "lib": ["es2015"],
   "include": ["src"]

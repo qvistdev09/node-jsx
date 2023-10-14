@@ -1,9 +1,9 @@
 {
   "name": "@qvistdev/node-jsx",
   "version": "0.0.1",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "build": "rm -rf dist && tsc",
+    "build": "rm -rf lib && tsc",
     "watch": "tsc --watch"
   },
   "author": {
@@ -19,5 +19,8 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:qvistdev09/node-jsx.git"
-  }
+  },
+  "files": [
+    "/lib"
+  ]
 }
