@@ -1,5 +1,5 @@
 {
-  "name": "server-jsx",
+  "name": "@qvistdev/node-jsx",
   "version": "0.0.1",
   "main": "dist/index.js",
   "scripts": {
@@ -8,6 +8,7 @@
   },
   "author": {
     "name": "Oscar Lindqvist",
+    "url": "https://github.com/qvistdev09",
     "email": "qvistdev09@gmail.com"
   },
   "license": "ISC",
@@ -18,6 +19,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:qvistdev09/server-jsx.git"
+    "url": "git@github.com:qvistdev09/node-jsx.git"
   }
 }
